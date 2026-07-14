@@ -73,5 +73,15 @@ public class EmployeeService {
     }
 
 
+    //---------  increase salary -----------
+
+    public void updateSalary(Double percentage) {
+
+        employeeRepository.increaseSalary(percentage);
+
+        logger.info("Increased employees salaries by {} %.", percentage);
+    }
+
+
 
 }
