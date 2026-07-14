@@ -76,4 +76,17 @@ public class EmployeeController {
 
 
 
+    @PatchMapping("/emp/raise")
+    public ResponseEntity<String> increaseSalaryForAllEmployees(@RequestParam Double percentage) {
+
+        employeeService.updateSalary(percentage);
+
+        return ResponseEntity.ok(percentage + "% raise applied to all employees successfully");
+    }
+
+
+
+
+
+
 }
