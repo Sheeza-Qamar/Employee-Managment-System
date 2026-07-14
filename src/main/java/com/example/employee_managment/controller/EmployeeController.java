@@ -10,6 +10,7 @@ import com.example.employee_managment.mapper.EmployeeSalaryMapper;
 import com.example.employee_managment.model.Employee;
 import com.example.employee_managment.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
@@ -59,6 +60,18 @@ public class EmployeeController {
 
         return employeeIdentityMapper.toResponse(updated);
 
+    }
+
+
+    //------------- delete employee ---------------
+
+
+    @DeleteMapping("/deleteEmployee/{id}")
+
+    public ResponseEntity<String> deleteEmployee(@PathVariable Long id){
+        employeeService.deleteEmployee(id);
+
+        return ResponseEntity.ok("Employee with id " + id + " deleted successfully");
     }
 
 
