@@ -56,6 +56,8 @@ public class EmployeeService {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
 
+        logger.info("Indentity of employee id = {} has been updated to = {} : ", id, newIdentity);
+
         employee.setIdentity(newIdentity);
         return employeeRepository.save(employee);
     }
