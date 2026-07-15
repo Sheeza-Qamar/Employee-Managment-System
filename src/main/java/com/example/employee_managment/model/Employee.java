@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -32,5 +34,17 @@ public class Employee {
 
     @Column (nullable = false)
     private String identity;
+
+    @Column
+    private Integer age;
+
+    @Column
+    private LocalDateTime updatedAt;
+
+    // Automatically runs right before any UPDATE query
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 
 }

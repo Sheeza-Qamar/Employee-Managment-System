@@ -85,5 +85,12 @@ public class EmployeeService {
     }
 
 
+    // ----------------------
+
+    public List<Employee> findByageBetween (Integer minAge, Integer maxAge){
+        return employeeRepository.findByAgeBetween(minAge, maxAge);
+    }
+
+
 
 }

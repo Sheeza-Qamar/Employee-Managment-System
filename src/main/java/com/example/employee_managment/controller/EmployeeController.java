@@ -3,8 +3,10 @@ package com.example.employee_managment.controller;
 
 import com.example.employee_managment.dto.request.IdentityRequestDto;
 import com.example.employee_managment.dto.request.SalaryRequestDto;
+import com.example.employee_managment.dto.response.EmployeeAgeBetweenListResponseDto;
 import com.example.employee_managment.dto.response.EmployeeIdentityResponseDto;
 import com.example.employee_managment.dto.response.EmployeeSalaryResponseDto;
+import com.example.employee_managment.mapper.EmployeeAgeBetweenResponseMapper;
 import com.example.employee_managment.mapper.EmployeeIdentityMapper;
 import com.example.employee_managment.mapper.EmployeeSalaryMapper;
 import com.example.employee_managment.model.Employee;
@@ -16,6 +18,7 @@ import jakarta.validation.Valid;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestMapping("/api")
 @RestController
@@ -30,6 +33,9 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeIdentityMapper employeeIdentityMapper;
+
+    @Autowired
+    private EmployeeAgeBetweenResponseMapper employeeAgeBetweenResponseMapper;
 
     @GetMapping("/allemp")
     public List<Employee> GetallEmployees(){
@@ -82,6 +88,21 @@ public class EmployeeController {
         employeeService.updateSalary(percentage);
 
         return ResponseEntity.ok(percentage + "% raise applied to all employees successfully");
+    }
+
+
+
+    //--------------------------------------------------
+
+    @GetMapping("/GetEmpofAge")
+    public List<EmployeeAgeBetweenListResponseDto> getAllEmpofAge(
+            @RequestParam Integer minAge,
+            @RequestParam Integer maxAge) {
+
+        return employeeService.findByageBetween(minAge, maxAge)
+                .stream()
+                .map(employeeAgeBetweenResponseMapper::toResponse)
+                .collect(Collectors.toList());
     }
 
 

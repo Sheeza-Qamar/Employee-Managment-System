@@ -7,10 +7,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Modifying
     @Transactional
     @Query("UPDATE Employee e SET e.salary = e.salary + (e.salary * :percentage / 100)")
     void increaseSalary(@Param("percentage") Double percentage);
+
+
+
+    List<Employee> findByAgeBetween(Integer minAge, Integer maxAge);
 }
